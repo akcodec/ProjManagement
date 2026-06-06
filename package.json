@@ -1,0 +1,18 @@
+{
+  "name": "projmanagement",
+  "version": "1.0.0",
+  "description": "To handle task assignment of a project",
+  "main": "index.js",
+  "type": "commonjs",
+  "scripts": {
+    "dev": "node index.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "cors": "^2.8.6",
+    "dotenv": "^17.4.2",
+    "express": "^5.2.1",
+    "mongoose": "^9.6.3"
+  }
+}
