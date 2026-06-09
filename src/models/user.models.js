@@ -1,6 +1,6 @@
 import mongoose, { Schema } from "mongoose";
 import bcrypt from "bcrypt";
-import jsonwebtoken from "jsonwebtoken";
+import jwt from "jsonwebtoken";
 import crypto from "crypto";
 
 // User schema definition - database structure
@@ -27,7 +27,7 @@ const userSchema = new Schema({
     },
     fullName: {
         type: String,
-        required: true,
+        required: false,
         trim: true
     },
     password: { 
@@ -54,14 +54,13 @@ const userSchema = new Schema({
 
 // Pre-hook: Password ko hash karne se pehle (jab save ho raha ho)
 // Agar password modify nahi ho to hash mat karo (sirf new/updated password ko hash karo)
-userSchema.pre('save', async function(next) {
+userSchema.pre('save', async function() {
     // Check if password field is modified
     if(!this.isModified('password')) {
-        return next();
+        return;
     }
     // Password ko 10 rounds ke saath bcrypt se hash karo
     this.password = await bcrypt.hash(this.password, 10);
-    next();
 });
 
 // Custom method: Entered password ko database password ke saath match karo
